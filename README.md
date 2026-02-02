@@ -1,16 +1,49 @@
-## Hi there 👋
+# Telegram Broadcast Bot
 
-<!--
-**7685tyut/7685tyut** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Бот помогает собирать список групп из добавленного аккаунта Telegram и делать рассылки с текстом, изображением, задержкой между сообщениями и опциональным «невидимым» упоминанием для повышения доставки уведомлений.
 
-Here are some ideas to get you started:
+## Возможности
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- добавление аккаунтов Telegram (user sessions);
+- сбор групп/мегагрупп из аккаунта;
+- рассылка сообщений с настройкой темпа;
+- изображение по желанию;
+- невидимое упоминание участников группы через `tg://user?id=...` перед отправкой сообщения.
+
+## Установка
+
+1. Установите зависимости:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Создайте `config.yaml` на основе шаблона и заполните значения.
+
+```yaml
+bot_token: "PASTE_BOT_TOKEN"
+api_id: 123456
+api_hash: "PASTE_API_HASH"
+admin_ids:
+  - 123456789
+storage_path: "data/storage.json"
+media_dir: "data/media"
+```
+
+3. Запустите бота:
+
+```bash
+python -m bot.main
+```
+
+## Использование
+
+- `/add_account` — добавить аккаунт (бот попросит label, телефон, код и пароль 2FA при необходимости).
+- `/accounts` — список аккаунтов.
+- `/collect_groups <label>` — собрать группы и мегагруппы.
+- `/broadcast` — пошаговая рассылка (текст, изображение/skip, задержка, упоминание).
+
+## Примечания
+
+- Невидимое упоминание собирает участников группы перед отправкой. Для безопасности используется лимит на количество упоминаний (по умолчанию 50).
+- Для изображения бот скачивает файл в `data/media` и отправляет через user session.
